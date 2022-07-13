@@ -25,12 +25,16 @@ Login
       {% csrf_token %}
       <div class="mb-3">
         <label class="form-label">Username:</label>
-        <input type="text" class="form-control" name="username" required>
+        <input type="text" class="form-control"
+               value="{% if form.username.value %} {{ form.username.value }} {% endif %}"
+               name="username" required>
       </div>
 
       <div class="mb-3">
         <label class="form-label">Password:</label>
-        <input type="password" class="form-control" name="password" required>
+        <input type="password" class="form-control"
+               value="{% if form.password.value %} {{ form.password.value }} {% endif %}"
+               name="password" required>
       </div>
       <button type="submit" class="btn btn-primary mb-3">Login</button>
     </form>
