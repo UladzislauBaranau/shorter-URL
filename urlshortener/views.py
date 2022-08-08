@@ -4,8 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import redirect, render, get_object_or_404
-
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import LoginForm, RegisterForm
 from .models import Urls
@@ -60,21 +59,21 @@ def shortener_view(request):
     if request.method == "POST":
         req_url = request.POST['origin_url']
         user = request.user
-        if req_url != '':
-            if not Urls.objects.filter(Q(origin_url=req_url) & Q(user=user)):
-                random_id = str(uuid.uuid4())[:6]
-                url = Urls(origin_url=req_url, short_id=random_id, user=user)
-                url.save()
 
-            obj = Urls.objects.get(Q(origin_url=req_url) & Q(user=user))
-            host_url = request.get_host()
-            messages.success(request, 'Take your short link:')
+        if not Urls.objects.filter(Q(origin_url=req_url) & Q(user=user)):
+            random_id = str(uuid.uuid4())[:6]
+            url = Urls(origin_url=req_url, short_id=random_id, user=user)
+            url.save()
 
-            context = {
-                'obj': obj,
-                'host_url': host_url,
-            }
-            return render(request, 'urlshortener/shortener.html', context)
+        obj = Urls.objects.get(Q(origin_url=req_url) & Q(user=user))
+        host_url = request.get_host()
+        messages.success(request, 'Take your short link:')
+
+        context = {
+            'obj': obj,
+            'host_url': host_url,
+        }
+        return render(request, 'urlshortener/shortener.html', context)
     return render(request, 'urlshortener/shortener.html')
 
 
