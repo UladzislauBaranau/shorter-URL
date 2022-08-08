@@ -14,8 +14,9 @@ Shortener
   {% for message in messages %}
     <div class="col-5 text-center">
       {% if 'success' in message.tags %}
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
           {{ message }} <a href="{{ obj.origin_url }}" target="_blank" class="alert-link">{{ host_url }}/{{ obj.short_id }}</a>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       {% endif %}
     </div>
