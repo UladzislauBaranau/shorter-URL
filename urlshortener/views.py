@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 
 
 from .forms import LoginForm, RegisterForm
@@ -80,8 +80,8 @@ def shortener_view(request):
 
 @login_required
 def redirect_to_origin_url_view(request, pk):
-    url = Urls.objects.get(pk=pk)
-    return redirect(url.origin_url)
+    obj = get_object_or_404(Urls, pk=pk)
+    return redirect(obj.origin_url)
 
 
 @login_required
