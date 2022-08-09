@@ -10,3 +10,8 @@ class Urls(models.Model):
 
     def __str__(self):
         return f"{self.origin_url} - {self.short_id}"
+
+    class Meta:
+        verbose_name = 'URL'
+        verbose_name_plural = 'URLs list'
+        ordering = ['-pub_date']
