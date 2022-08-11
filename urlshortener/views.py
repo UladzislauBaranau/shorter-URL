@@ -1,5 +1,3 @@
-import uuid
-
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -7,7 +5,7 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import LoginForm, RegisterForm
-from .models import Urls
+from .models import Urls, generate_short_id
 
 
 def register_view(request):
@@ -61,8 +59,7 @@ def shortener_view(request):
         user = request.user
 
         if not Urls.objects.filter(Q(origin_url=req_url) & Q(user=user)):
-            random_id = str(uuid.uuid4())[:6]
-            url = Urls(origin_url=req_url, short_id=random_id, user=user)
+            url = Urls(origin_url=req_url, short_id=generate_short_id(), user=user)
             url.save()
 
         obj = Urls.objects.get(Q(origin_url=req_url) & Q(user=user))

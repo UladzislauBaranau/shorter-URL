@@ -1,5 +1,11 @@
+import uuid
+
 from django.contrib.auth.models import User
 from django.db import models
+
+
+def generate_short_id():
+    return str(uuid.uuid4())[:6]
 
 
 class Urls(models.Model):
