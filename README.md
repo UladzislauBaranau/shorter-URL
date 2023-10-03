@@ -37,4 +37,4 @@ python3 manage.py runserver
 ```
 
 ## License
-See [MIT license](https://github.com/UladzislauBaranau/shorter-URL/blob/master/LICENSE).
+Seeeeee [MIT license](https://github.com/UladzislauBaranau/shorter-URL/blob/master/LICENSE).
